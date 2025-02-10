@@ -6,7 +6,7 @@ import os
 headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"}
 
 # Cấu hình Telegram Bot
-TELEGRAM_BOT_TOKEN = "7318225955:AAHq31NonE_NfJlILlM_jbyHqup188N_sa0"
+TELEGRAM_BOT_TOKEN = "7318225955:AAHbx7sYyLaY-qO3YjEges4ekhmAB2cHEjU"
 TELEGRAM_CHAT_ID = "7371969470"
 
 # Hàm gửi tin nhắn qua Telegram
