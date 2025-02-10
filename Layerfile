@@ -15,6 +15,9 @@ RUN apt-get update && \
     apt-get install -y docker-ce docker-ce-cli containerd.io
 
 
+# copy files from the repository into this staging server
+COPY . .
+
 # Build the Docker image
 RUN docker build -t image .
 
