@@ -1,24 +1,29 @@
-# This is an example webapp.io configuration for Docker!
-FROM vm/ubuntu:18.04
+# This is an example webapp.io configuration for a VM!
+FROM vm/ubuntu:22.04
 
-# To note: Layerfiles create entire VMs, *not* containers!
+# Cập nhật hệ thống và cài đặt các package cần thiết
+RUN apt update -y && apt install -y --no-install-recommends \
+    bash curl git htop speedtest-cli python3-pip supervisor \
+    && pip3 install requests python-telegram-bot pytz --break-system-packages \
+    && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+    && apt install -y nodejs \
+    && npm install -g npm@latest \
+    && npm install hpack https commander colors socks axios express \
+    && npm install -g cloudflared \
+    && apt clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install the latest version of Docker, as in the official Docker installation tutorial.
-RUN apt-get update && \
-    apt-get install -y ca-certificates curl gnupg lsb-release && \
-    mkdir -p /etc/apt/keyrings && \
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg && \
-    echo \
-    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" |\
-      tee /etc/apt/sources.list.d/docker.list > /dev/null && \
-    apt-get update && \
-    apt-get install -y docker-ce docker-ce-cli containerd.io
+# Tạo thư mục làm việc
+WORKDIR /api
 
-# Copy files from the repository into this staging server
-COPY . .
+# Copy các file cần thiết vào VM
+COPY api.js .
+COPY prxscan.py .
+COPY list.txt .
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-# Build the Docker image
-RUN docker build -t image .
+# Cấp quyền thực thi cho các script
+RUN chmod +x /api/api.js /api/prxscan.py
 
-# Run the Docker container without exposing any ports
-RUN docker run -d image
+# Chạy supervisord khi VM khởi động
+CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
