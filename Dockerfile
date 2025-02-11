@@ -10,8 +10,10 @@ RUN apt-get update -y && \
     bash curl git htop speedtest-cli python3-pip && \
     pip3 install requests python-telegram-bot pytz --break-system-packages && \
     npm install -g npm@latest && \
-    npm install hpack https commander colors socks axios express && \
+    npm install -g hpack https commander colors socks axios express && \
     npm install -g cloudflared && \
+    npm install cloudflared && \
+    npm install hpack https commander colors socks axios express && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
