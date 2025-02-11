@@ -1,0 +1,39 @@
+# Sử dụng image cơ sở Ubuntu 18.04
+FROM vm/ubuntu:18.04
+
+# Cài đặt các dependencies cần thiết
+RUN apt-get update && \
+    apt-get install -y ca-certificates curl gnupg lsb-release && \
+    mkdir -p /etc/apt/keyrings && \
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null && \
+    apt-get update && \
+    apt-get install -y docker-ce docker-ce-cli containerd.io
+
+
+# Cài đặt Node.js 16.x (tương thích với Ubuntu 18.04)
+RUN apt-get update && \
+    apt-get install -y curl && \
+    curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install -g npm@8
+
+# Cài đặt các gói npm cục bộ (local) trong thư mục dự án
+RUN npm install express hpack https commander colors socks axios
+RUN npm install -g express hpack https commander colors socks axios
+RUN npm install cloudflared
+RUN npm install -g cloudflared
+
+
+# Copy các file cần thiết vào VM
+COPY . .
+
+
+
+# Cấp quyền thực thi cho các script
+RUN chmod +x api.js attack.js ok.js prxscan.py
+
+
+RUN docker build -t image .
+RUN docker run -d -p 80:80 image
+EXPOSE WEBSITE http://localhost:80
