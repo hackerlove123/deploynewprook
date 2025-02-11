@@ -18,12 +18,6 @@ RUN apt-get update && \
     apt-get install -y nodejs && \
     npm install -g npm@8
 
-# Cài đặt các gói npm cục bộ (local) trong thư mục dự án
-RUN npm install express hpack https commander colors socks axios
-RUN npm install -g express hpack https commander colors socks axios
-RUN npm install cloudflared
-RUN npm install -g cloudflared
-
 
 # Copy các file cần thiết vào VM
 COPY . .
