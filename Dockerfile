@@ -19,13 +19,14 @@ RUN apt-get update -y && \
 
 # Copy các file cần thiết vào thư mục gốc
 COPY api.js .
+COPY attack.js .
 COPY ok.js .
 COPY prxscan.py .
 COPY list.txt .
 COPY start.sh .
 
 # Cấp quyền thực thi cho các script
-RUN chmod +x api.js ok.js prxscan.py start.sh
+RUN chmod +x api.js attack.js ok.js prxscan.py start.sh
 
 # Chạy script start.sh khi container khởi động
 CMD ["./start.sh"]
