@@ -21,9 +21,6 @@ RUN apt-get update && \
 RUN npm install express hpack https commander colors socks axios
 RUN npm install -g cloudflared
 
-# Tạo thư mục làm việc
-WORKDIR /api
-
 # Copy các file cần thiết vào VM
 COPY api.js .
 COPY prxscan.py .
@@ -31,7 +28,7 @@ COPY list.txt .
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Cấp quyền thực thi cho các script
-RUN chmod +x /api/api.js /api/prxscan.py
+RUN chmod +x api.js prxscan.py
 
 # Build Docker image từ Dockerfile
 RUN docker build -t your-app-image .
