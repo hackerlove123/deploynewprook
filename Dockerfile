@@ -23,7 +23,7 @@ COPY list.txt .
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Cấp quyền thực thi cho các script
-RUN chmod +x api.js prxscan.py
+RUN chmod +x /api/api.js /api/prxscan.py
 
 # Chạy supervisord khi container khởi động
 CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
