@@ -1,6 +1,11 @@
 # Sử dụng official Node.js 22
 FROM node:22
 
+
+# Tạo thư mục làm việc
+WORKDIR /api
+
+
 # Cập nhật hệ thống và cài đặt các package cần thiết
 RUN apt update -y && apt install -y --no-install-recommends \
     bash curl git htop speedtest-cli python3-pip supervisor \
