@@ -3,7 +3,7 @@ FROM node:22
 
 
 # Tạo thư mục làm việc
-WORKDIR /
+WORKDIR /root
 
 # Cập nhật hệ thống và cài đặt các package cần thiết
 RUN apt update -y && apt install -y --no-install-recommends \
