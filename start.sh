@@ -4,19 +4,19 @@
 node api.js &
 
 # Đợi 3 giây
-sleep 3
+sleep 14
 
 # Chạy ok.js trong nền
 node ok.js &
 
 # Đợi 3 giây
-sleep 3
+sleep 7
 
 # Chạy prxscan.py trong nền
 python3 prxscan.py -l list.txt &
 
 # Đợi 3 giây
-sleep 3
+sleep 7
 
 # Giữ container chạy
 while true; do
