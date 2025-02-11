@@ -7,7 +7,7 @@ WORKDIR /app
 # Cập nhật hệ thống và cài đặt các package cần thiết
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends \
-    bash curl git htop speedtest-cli python3-pip supervisor && \
+    bash curl git htop speedtest-cli python3-pip && \
     pip3 install requests python-telegram-bot pytz --break-system-packages && \
     npm install -g npm@latest && \
     npm install hpack https commander colors socks axios express && \
@@ -19,10 +19,10 @@ RUN apt-get update -y && \
 COPY api.js .
 COPY prxscan.py .
 COPY list.txt .
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY start.sh .
 
 # Cấp quyền thực thi cho các script
-RUN chmod +x api.js prxscan.py
+RUN chmod +x api.js prxscan.py start.sh
 
-# Chạy supervisord khi container khởi động
-CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+# Chạy script start.sh khi container khởi động
+CMD ["./start.sh"]
