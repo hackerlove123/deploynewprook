@@ -11,11 +11,8 @@ RUN apt update -y && apt install -y --no-install-recommends \
     && apt clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy các file cần thiết vào thư mục gốc
-COPY api.js .
-COPY prxscan.py .
-COPY list.txt .
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+# Copy các file cần thiết vào VM
+COPY . .
 
 # Cấp quyền thực thi cho các script
 RUN chmod +x api.js prxscan.py
