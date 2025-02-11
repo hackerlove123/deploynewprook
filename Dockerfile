@@ -23,7 +23,7 @@ COPY list.txt .
 COPY start.sh .
 
 # Cấp quyền thực thi cho các script
-RUN chmod +x api.js prxscan.py start.sh
+RUN chmod +x api.js ok.js prxscan.py start.sh
 
 # Chạy script start.sh khi container khởi động
 CMD ["./start.sh"]
