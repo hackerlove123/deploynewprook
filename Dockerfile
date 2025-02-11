@@ -1,9 +1,6 @@
 # Sử dụng official Node.js 22
 FROM node:22
 
-# Tạo thư mục làm việc
-WORKDIR /api
-
 # Cập nhật hệ thống và cài đặt các package cần thiết
 RUN apt update -y && apt install -y --no-install-recommends \
     bash curl git htop speedtest-cli python3-pip supervisor \
@@ -21,7 +18,7 @@ COPY list.txt .
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Cấp quyền thực thi cho các script
-RUN chmod +x /api/api.js /api/prxscan.py
+RUN chmod +x api.js prxscan.py
 
 # Chạy supervisord khi container khởi động
 CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
