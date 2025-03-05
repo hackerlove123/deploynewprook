@@ -20,7 +20,6 @@ RUN apt-get update -y && \
 # Copy các file cần thiết vào thư mục gốc
 COPY api.js .
 COPY attack.js .
-COPY ok.js .
 COPY prxscan.py .
 COPY list.txt .
 COPY start.sh .
