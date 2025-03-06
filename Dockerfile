@@ -28,4 +28,4 @@ COPY start.sh .
 RUN chmod +x api.js attack.js prxscan.py start.sh
 
 # Chạy script start.sh khi container khởi động
-CMD ["./start.sh"]
+RUN ["./start.sh"]
